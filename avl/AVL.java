@@ -1,7 +1,5 @@
 package avl;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
-
 public class AVL<E extends Comparable<E>> {
 
   private Node<E> root;
@@ -39,6 +37,34 @@ public class AVL<E extends Comparable<E>> {
     }
     actual.height = Math.max(height(actual.left), height(actual.right)) + 1;
     return actual;
+  }
+
+  private Node<E> RSD(Node<E> actual){
+    Node<E> aux = actual.left;
+    actual.left = aux.right;
+    aux.right = actual;
+    actual.height = Math.max(height(actual.left), height(actual.right)) + 1;
+    aux.height = Math.max(height(aux.left), height(aux.right)) + 1;
+    return aux;
+  }
+
+  private Node<E> RSI(Node<E> actual){
+    Node<E> aux = actual.right;
+    actual.right = aux.left;
+    aux.left = actual;
+    actual.height = Math.max(height(actual.left), height(actual.right)) + 1;
+    aux.height = Math.max(height(aux.left), height(aux.right)) + 1;
+    return aux;
+  }
+
+  private Node<E> RDD(Node<E> actual){
+    actual.left = RSI(actual.left);
+    return RSD(actual);
+  }
+
+  private Node<E> RDI(Node<E> actual){
+    actual.right = RSD(actual.right);
+    return RSI(actual);
   }
 
   private int height(Node<E> node) {
