@@ -4,4 +4,4 @@ find bin -name "*.class" -delete
 
 mkdir -p bin
 
-javac -d bin $(find $1 -name "*.java")
+javac -cp "lib/*" -d bin $(find $1 -name "*.java")
