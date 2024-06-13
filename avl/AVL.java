@@ -134,6 +134,7 @@ public class AVL<E extends Comparable<E>> {
 
   public void display(){
     if(isEmpty()) return;
+    System.setProperty("org.graphstream.ui", "swing");
     Graph graph = new SingleGraph("Arbol AVL");
     String css = "node { fill-color: black; size: 30px; text-size: 20px; text-color: white; } edge { fill-color: black; size: 2px; arrow-size: 10px, 10px; arrow-shape: arrow; }";
     graph.setAttribute("ui.stylesheet", css);
