@@ -12,6 +12,62 @@ public class AVL<E extends Comparable<E>> {
     this.root = null;
   }
 
+  public E search(E x){
+    Node<E> res = searchNode(root, x);
+    if(res == null) 
+  return null;
+    return res.data;
+  }
+  protected Node<E> searchNode(Node<E> actual, E x){
+    if(actual == null) return null;
+    int resComp = actual.data.compareTo(x);
+    if(resComp < 0) return searchNode(actual.right, x);
+    if(resComp > 0) return searchNode(actual.left, x);
+    return actual;
+  }
+
+  public boolean isEmpty(){
+    return root == null;
+  }
+
+  public E getMin(){
+    if(isEmpty()) return null;
+    return getMinNode(root).data;
+  }
+  protected Node<E> getMinNode(Node<E> actual){
+    if(actual.left == null) return actual;
+    return getMinNode(actual.left);
+  }
+
+  protected Node<E> getMaxNode(Node<E> actual){
+    if(actual.right == null) return actual;
+    return getMaxNode(actual.right);
+  }
+
+  public E parent(E x){
+    Node<E> res = searchParent(root, null, x);
+    if(res == null) return null;
+    return res.data;
+  }
+  protected Node<E> searchParent(Node<E> actual, Node<E> parent, E x){
+    if(actual == null) return null;
+    int resComp = actual.data.compareTo(x);
+    if(resComp < 0) return searchParent(actual.right, actual, x);
+    if(resComp > 0) return searchParent(actual.left, actual, x);
+    return parent;   
+  }
+
+  @SuppressWarnings("unchecked")
+  public E[] son(E x){
+    Node<E> parent = searchNode(root, x);
+    if(parent == null) 
+  return null;
+    E[] res = (E[]) new Object[2];
+    res[0] = parent.left.data;
+    res[1] = parent.right.data;
+    return res;
+  }
+
   public void insert(E x){
     root = insert(x, root);
   }
@@ -60,4 +116,3 @@ public class AVL<E extends Comparable<E>> {
   }
 
 }
-
